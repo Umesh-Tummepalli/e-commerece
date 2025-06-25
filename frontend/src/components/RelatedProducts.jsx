@@ -8,7 +8,6 @@ const RelatedProducts = (props) => {
     const [relatedProds,setrelatedProds]=useState([]);
     useEffect(()=>{
       const relprods=products.filter(item=>item.category===category).slice(0,5);
-      console.log(category,relprods);
       setrelatedProds(relprods);
     },[category,products])
   return (

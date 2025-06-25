@@ -7,7 +7,7 @@ import RelatedProducts from "../components/RelatedProducts";
 const Product = () => {
   const { prodId } = useParams();
   const [prodInfo, setProdInfo] = useState({});
-  const { products } = useContext(shopContext);
+  const { products,addToCart } = useContext(shopContext);
   const [size, setSize] = useState("S");
   useEffect(() => {
     const info = products.find((item) => item._id == prodId);
@@ -65,7 +65,9 @@ const Product = () => {
                   <span className="font-bold text-xl">{size}</span>
                 </p>
               </div>
-              <button className="p-3 rounded-lg border-1 border-black/60 w-fit px-5 hover:bg-black hover:text-white duration-300">
+              <button className="p-3 rounded-lg border-1 border-black/60 w-fit px-5 hover:bg-black hover:text-white duration-300"
+              onClick={()=>{addToCart(prodInfo._id,size)}}
+              >
                 Add To Cart
               </button>
             </div>
