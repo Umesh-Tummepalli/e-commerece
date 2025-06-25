@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link,useNavigate } from "react-router-dom";
 import { Search, User, ShoppingCart, AlignJustify,CircleX } from "lucide-react";
 const Navbar = () => {
+  const navigate=useNavigate();
   const [visible, setvisible] = useState(false);
   return (
     <nav className="text-black  flex justify-between sm:justify-around items-center p-8">
@@ -41,10 +42,12 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex justify-between gap-5">
-        <Search />
+          <Search 
+          onClick={()=>{navigate('/collection')}}
+          />
         <div className="relative group ">
           <User />
-          <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 duration-200 border-2 rounded-xl py-2">
+          <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 max-h-0 overflow-hidden duration-200 border-2 rounded-xl py-2 group-hover:max-h-[1000px] h-fit bg-white/5 border-black/10 backdrop-blur-sm backdrop-saturate-150 shadow-2xl">
             <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
               My Profile
             </p>
