@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { NavLink, Link,useNavigate } from "react-router-dom";
 import { Search, User, ShoppingCart, AlignJustify,CircleX } from "lucide-react";
+import { shopContext } from "../context/ShopContext";
 const Navbar = () => {
   const navigate=useNavigate();
   const [visible, setvisible] = useState(false);
+  const {cartSize}=useContext(shopContext);
   return (
     <nav className="text-black  flex justify-between sm:justify-around items-center p-8">
       <span>Logo</span>
@@ -47,8 +49,10 @@ const Navbar = () => {
           />
         <div className="relative group ">
           <User />
-          <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 max-h-0 overflow-hidden duration-200 border-2 rounded-xl py-2 group-hover:max-h-[1000px] h-fit bg-white/5 border-black/10 backdrop-blur-sm backdrop-saturate-150 shadow-2xl">
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
+          <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 max-h-0 overflow-hidden duration-200 border-2 rounded-xl py-2 group-hover:max-h-[1000px] h-fit bg-white/5 border-black/10 backdrop-blur-sm backdrop-saturate-150 shadow-2xl z-10">
+            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 "
+            onClick={()=>{}}
+            >
               My Profile
             </p>
             <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
@@ -62,7 +66,7 @@ const Navbar = () => {
         <Link to="/cart" className="relative">
           <ShoppingCart />
           <p className="bg-black text-white absolute p-1 px-1.5 rounded-full text-sm top-0 translate-x-full -translate-y-1/2 aspect-square">
-            10
+            {cartSize||0}
           </p>
         </Link>
         <div

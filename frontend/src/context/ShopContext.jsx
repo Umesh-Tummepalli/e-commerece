@@ -19,7 +19,7 @@ const ShopProvider=({children})=>{
             }
         }
         else{
-            console.log('new item created')
+            // console.log('new item created')
             cartClone[itemId]={}
             cartClone[itemId][size]=1;
         }
@@ -31,7 +31,8 @@ const ShopProvider=({children})=>{
     const value={
         products,
         cartItems,
-        addToCart
+        addToCart,
+        cartSize:Object.keys(cartItems).length
     }
     return(
         <shopContext.Provider value={value}>
