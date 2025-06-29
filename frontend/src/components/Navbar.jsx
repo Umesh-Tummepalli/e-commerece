@@ -51,11 +51,13 @@ const Navbar = () => {
           <User />
           <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 max-h-0 overflow-hidden duration-200 border-2 rounded-xl py-2 group-hover:max-h-[1000px] h-fit bg-white/5 border-black/10 backdrop-blur-sm backdrop-saturate-150 shadow-2xl z-10">
             <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 "
-            onClick={()=>{}}
+            onClick={()=>{navigate('/profile')}}
             >
               My Profile
             </p>
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
+            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 "
+            onClick={()=>{navigate('/orders')}}
+            >
               Orders
             </p>
             <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">

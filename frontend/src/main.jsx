@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import PlaceOrder from "./pages/placeOrder";
 import Orders from "./pages/Orders";
 import ShopProvider from "./context/ShopContext";
+import Profile from "./pages/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <Orders />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },
