@@ -6,14 +6,28 @@ import jwt from "jsonwebtoken";
 function createToken(id) {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 }
-export function userLogin(req, res) {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ message: "Please fill all the fields" });
-  }
-  const user=userModel.findOne({email:email});
-  if(!user){
-    return res.status(400).json({ message: "User with this email does not exist" });
+export async function userLogin(req, res) {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please fill all the fields" });
+    }
+    const user = await userModel.findOne({ email: email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User with this email does not exist" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      const token = createToken(user._id);
+      return res.status(200).json({ token });
+    } else {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "something went wrong" });
+    console.log("error in userLogin", err);
   }
 }
 
