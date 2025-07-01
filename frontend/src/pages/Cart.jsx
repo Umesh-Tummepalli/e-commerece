@@ -64,7 +64,7 @@ const Cart = () => {
           );
         })}
       </div>
-      <div className="sticky top-3 border h-fit p-3 rounded-md w-full md:w-1/3 m-3 text-center">
+      <div className="sticky top-20 border h-fit p-3 rounded-md w-full md:w-1/3 m-3 text-center">
         <Title text1="Total" text2="Price" />
         <div className="border-b">
           {cartProducts.map((item, index) => {

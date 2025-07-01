@@ -65,14 +65,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element:<Admin/>
-  }
+    element: <Admin />,
+  },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ShopProvider>
-      <RouterProvider router={router}>
-      </RouterProvider>
+        <RouterProvider router={router}></RouterProvider>
     </ShopProvider>
   </StrictMode>
 );

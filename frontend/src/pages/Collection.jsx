@@ -66,7 +66,7 @@ const Collection = () => {
       <Search search={search} setsearch={setsearch} />
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
         {/* Filter Options */}
-        <div>
+        <div className="md:sticky top-4 h-fit">
           <p className="font-bold text-2xl text-center">Filters</p>
           {/* Categories */}
           <div className="p-3 flex flex-col gap-3 m-4 border rounded-lg">

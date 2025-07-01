@@ -9,7 +9,7 @@ const Navbar = () => {
   const { cartSize } = useContext(shopContext);
   
   return (
-    <nav className="text-black flex justify-between items-center p-6 px-4 sm:px-8 border-b border-gray-100 shadow-sm bg-white sticky top-0 z-50">
+    <nav className="text-black flex justify-between items-center p-6 px-4 sm:px-8 border-b border-gray-100 shadow-sm bg-white  top-0 z-50">
       {/* Logo with subtle hover effect */}
       <span 
         className="text-xl font-bold cursor-pointer hover:scale-105 transition-transform duration-200"
