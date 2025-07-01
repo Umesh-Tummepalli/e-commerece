@@ -3,6 +3,7 @@ import { shopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import Card from "../components/Card";
 import Search from "../components/Search";
+import { motion } from "framer-motion";
 const Collection = () => {
   const { products } = useContext(shopContext);
   const [filteredProds, setFilteredProds] = useState([]);
@@ -10,7 +11,7 @@ const Collection = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [sortBy, setSortBy] = useState("relevant");
   const unsortedData = useRef(products);
-  const [search,setsearch]=useState('');
+  const [search, setsearch] = useState("");
   function toggleCategory(e) {
     setCategory((prev) => {
       if (prev.includes(e.target.value)) {
@@ -30,7 +31,9 @@ const Collection = () => {
     });
   }
   useEffect(() => {
-    let Productsfiltered =search ? products.filter(item=>item.name.toLowerCase().includes(search)) : products;
+    let Productsfiltered = search
+      ? products.filter((item) => item.name.toLowerCase().includes(search))
+      : products;
     if (category.length > 0) {
       Productsfiltered = products.filter((item) =>
         category.includes(item.category)
@@ -43,7 +46,7 @@ const Collection = () => {
     }
     unsortedData.current = [...Productsfiltered];
     setFilteredProds(Productsfiltered);
-  }, [category, products, subCategory,search]);
+  }, [category, products, subCategory, search]);
   useEffect(() => {
     setFilteredProds((prev) => {
       const sorted = [...prev]; // clone the array
@@ -60,7 +63,7 @@ const Collection = () => {
 
   return (
     <>
-     <Search search={search} setsearch={setsearch}/>
+      <Search search={search} setsearch={setsearch} />
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
         {/* Filter Options */}
         <div>
@@ -166,11 +169,22 @@ const Collection = () => {
             </select>
           </div>
 
-          <div>
-            {filteredProds.map((item) => (
-              <Card item={item} key={item._id} />
-            ))}
-          </div>
+          <motion.div layout className="flex flex-wrap">
+            {filteredProds.map((item) => {
+              return(
+              <motion.div
+                className="div inline"
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 50 }}
+                key={item._id}
+                layoutId={item._id}
+              >
+                <Card item={item} />
+              </motion.div>
+            )})}
+          </motion.div>
         </div>
       </div>
     </>

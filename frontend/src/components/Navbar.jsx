@@ -53,9 +53,9 @@ const Navbar = () => {
         {/* User Dropdown */}
         <div className="relative group">
           <User className="cursor-pointer hover:scale-110 transition-transform duration-200" />
-          <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-50">
+          <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-xl bg-white/50 backdrop-blur-[7px] backdrop-saturate-100  shadow-2xl  ring-black ring-opacity-5 focus:outline-none opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-50 border-1 border-black/30">
             <div className="py-1">
-              <p 
+              <p  
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                 onClick={() => navigate('/profile')}
               >
