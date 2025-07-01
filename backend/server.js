@@ -13,7 +13,6 @@ connectDB(); // connecting to mongodb
 connectCloudinary(); // connecting to cloudinary
 const app = express(); // creating express app
 const port=process.env.port||4000; // port number
-const upload=multer(); // multer for handling multipart/form-data, which is used for uploading files2
 
 //middlewares
 app.use(
@@ -25,7 +24,7 @@ app.use(
 );
 
 app.use(express.json()); // parses body of request to json
-app.use(upload.none()); // parses form multipart/formdata
+// app.use(upload.none()); // parses form multipart/formdata
 app.use(express.urlencoded({extended:true})) // parses traditional html form
 
 
@@ -41,6 +40,7 @@ app.use('/product',productRoutes);
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
+
 // starting the server
 app.listen(port, "localhost", () => {
   console.log("server started on port 4000");

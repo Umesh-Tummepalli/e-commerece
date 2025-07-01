@@ -15,6 +15,7 @@ import PlaceOrder from "./pages/placeOrder";
 import Orders from "./pages/Orders";
 import ShopProvider from "./context/ShopContext";
 import Profile from "./pages/Profile";
+import Admin from "./AdminPages/Admin.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,12 +63,15 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/admin",
+    element:<Admin/>
+  }
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ShopProvider>
       <RouterProvider router={router}>
-        <App />
       </RouterProvider>
     </ShopProvider>
   </StrictMode>

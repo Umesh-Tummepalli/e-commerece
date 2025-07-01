@@ -13,20 +13,32 @@ const productSchema=new mongoose.Schema({
         required:true
     },
     category:{
-        type:[String],
+        type:String,
         required:true
     },
     subCategory:{
         type:String,
         required:true
     },
-    image:{
-        type:String,
+    images:{
+        type:[String],
+        required:true
+    },
+    sizes:{
+        type:[String],
         required:true
     },
     bestSeller:{
         type:Boolean,
         default:false
+    },
+    admin:{
+        type:mongoose.Schema.Types.ObjectId || null,
+        default:null,
+    },
+    imagePublicIds:{
+        type:[String],
+        required:true
     }
 }, { timestamps: true });
 

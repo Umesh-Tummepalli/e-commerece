@@ -63,6 +63,11 @@ const Navbar = () => {
             <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
               Logout
             </p>
+            <Link to="/admin">
+            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
+              Login as Admin
+            </p>
+            </Link>
           </div>
         </div>
         <Link to="/cart" className="relative">
