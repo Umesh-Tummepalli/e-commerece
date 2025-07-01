@@ -1,131 +1,135 @@
-import React, { useState,useContext } from "react";
-import { NavLink, Link,useNavigate } from "react-router-dom";
-import { Search, User, ShoppingCart, AlignJustify,CircleX } from "lucide-react";
+import React, { useState, useContext } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Search, User, ShoppingCart, AlignJustify, CircleX } from "lucide-react";
 import { shopContext } from "../context/ShopContext";
+
 const Navbar = () => {
-  const navigate=useNavigate();
-  const [visible, setvisible] = useState(false);
-  const {cartSize}=useContext(shopContext);
+  const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+  const { cartSize } = useContext(shopContext);
+  
   return (
-    <nav className="text-black  flex justify-between sm:justify-around items-center p-8">
-      <span>Logo</span>
-      <ul className="space-x-10  hidden sm:block">
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black ${isActive && "border-b-2"}`
-          }
-          to="/"
-        >
-          Home
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black ${isActive && "border-b-2"}`
-          }
-          to="/collection"
-        >
-          Collection
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black ${isActive && "border-b-2"}`
-          }
-          to="/about"
-        >
-          About
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black ${isActive && "border-b-2"}`
-          }
-          to="/contact"
-        >
-          Contact
-        </NavLink>
+    <nav className="text-black flex justify-between items-center p-6 px-4 sm:px-8 border-b border-gray-100 shadow-sm bg-white sticky top-0 z-50">
+      {/* Logo with subtle hover effect */}
+      <span 
+        className="text-xl font-bold cursor-pointer hover:scale-105 transition-transform duration-200"
+        onClick={() => navigate('/')}
+      >
+        Logo
+      </span>
+      
+      {/* Desktop Navigation */}
+      <ul className="hidden sm:flex space-x-8">
+        {[
+          { path: "/", name: "Home" },
+          { path: "/collection", name: "Collection" },
+          { path: "/about", name: "About" },
+          { path: "/contact", name: "Contact" }
+        ].map((item) => (
+          <li key={item.name}>
+            <NavLink
+              className={({ isActive }) =>
+                `px-2 py-1 font-medium transition-all duration-200 ${
+                  isActive 
+                    ? "text-black border-b-2 border-black" 
+                    : "text-gray-600 hover:text-black hover:border-b-2 hover:border-gray-300"
+                }`
+              }
+              to={item.path}
+            >
+              {item.name}
+            </NavLink>
+          </li>
+        ))}
       </ul>
-      <div className="flex justify-between gap-5">
-          <Search 
-          onClick={()=>{navigate('/collection')}}
-          />
-        <div className="relative group ">
-          <User />
-          <div className="absolute whitespace-nowrap group-hover:opacity-100 opacity-0 max-h-0 overflow-hidden duration-200 border-2 rounded-xl py-2 group-hover:max-h-[1000px] h-fit bg-white/5 border-black/10 backdrop-blur-sm backdrop-saturate-150 shadow-2xl z-10">
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 "
-            onClick={()=>{navigate('/profile')}}
-            >
-              My Profile
-            </p>
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 "
-            onClick={()=>{navigate('/orders')}}
-            >
-              Orders
-            </p>
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
-              Logout
-            </p>
-            <Link to="/admin">
-            <p className="cursor-pointer px-5 py-2 hover:bg-black hover:text-white duration-300 ">
-              Login as Admin
-            </p>
-            </Link>
+      
+      {/* Icons Group */}
+      <div className="flex items-center gap-5 sm:gap-6">
+        <Search 
+          className="cursor-pointer hover:scale-110 transition-transform duration-200"
+          onClick={() => navigate('/collection')}
+        />
+        
+        {/* User Dropdown */}
+        <div className="relative group">
+          <User className="cursor-pointer hover:scale-110 transition-transform duration-200" />
+          <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-50">
+            <div className="py-1">
+              <p 
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                onClick={() => navigate('/profile')}
+              >
+                My Profile
+              </p>
+              <p 
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                onClick={() => navigate('/orders')}
+              >
+                Orders
+              </p>
+              <p className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                Logout
+              </p>
+              <Link to="/admin">
+                <p className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  Login as Admin
+                </p>
+              </Link>
+            </div>
           </div>
         </div>
+        
+        {/* Cart with badge */}
         <Link to="/cart" className="relative">
-          <ShoppingCart />
-          <p className="bg-black text-white absolute p-1 px-1.5 rounded-full text-sm top-0 translate-x-full -translate-y-1/2 aspect-square">
-            {cartSize||0}
+          <ShoppingCart className="hover:scale-110 transition-transform duration-200" />
+          <p className="absolute -top-2 -right-2 bg-black text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            {cartSize || 0}
           </p>
         </Link>
-        <div
-          className="sm:hidden mx-3"
-          onClick={() => setvisible(prev => !prev)}
+        
+        {/* Mobile menu button */}
+        <div 
+          className="sm:hidden ml-2 cursor-pointer"
+          onClick={() => setVisible(prev => !prev)}
         >
-          <AlignJustify />
+          <AlignJustify className="hover:scale-110 transition-transform duration-200" />
         </div>
-        {/* small screen navbar */}
-        <nav className={`sm:hidden fixed top-0 right-0 w-screen bg-white h-screen duration-300 overflow-hidden ${visible?"max-w-[1000px]":'max-w-0'} ` }>
-          <p
-            onClick={()=>{setvisible(prev=>!prev)}}
-            className="p-5 w-full"
-          >
-          <CircleX 
-          />
-          </p>
-          <ul className="flex flex-col  items-center">
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black duration-300 ${isActive ? "border-b-4 w-1/2":"w-3/4"} bg-black/30 m-4 rounded-2xl p-4 text-center `
-          }
-          to="/"
-        >
-          Home
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black duration-300 ${isActive ? "border-b-4 w-1/2":"w-3/4"} bg-black/30 m-4 rounded-2xl p-4 text-center `
-          }
-          to="/collection"
-        >
-          Collection
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black duration-300 ${isActive ? "border-b-4 w-1/2":"w-3/4"} bg-black/30 m-4 rounded-2xl p-4 text-center `
-          }
-          to="/about"
-        >
-          About
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:border-b-2 border-black duration-300 ${isActive ? "border-b-4 w-1/2":"w-3/4"} bg-black/30 m-4 rounded-2xl p-4 text-center `
-          }
-          to="/contact"
-        >
-          Contact
-        </NavLink>
-      </ul>
-        </nav>
+        
+        {/* Mobile Navigation */}
+        <div className={`sm:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ease-in-out ${visible ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+          <div className="p-5 flex justify-end">
+            <CircleX 
+              className="cursor-pointer hover:rotate-90 transition-transform duration-200"
+              size={28}
+              onClick={() => setVisible(false)}
+            />
+          </div>
+          
+          <ul className="flex flex-col items-center mt-10 space-y-6">
+            {[
+              { path: "/", name: "Home" },
+              { path: "/collection", name: "Collection" },
+              { path: "/about", name: "About" },
+              { path: "/contact", name: "Contact" }
+            ].map((item) => (
+              <li key={item.name} className="w-3/4 text-center">
+                <NavLink
+                  className={({ isActive }) =>
+                    `block py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+                      isActive 
+                        ? "bg-black text-white shadow-md" 
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`
+                  }
+                  to={item.path}
+                  onClick={() => setVisible(false)}
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   );
