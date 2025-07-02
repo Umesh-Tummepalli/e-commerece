@@ -1,73 +1,163 @@
 
+# 🛍️ Full-Stack E-Commerce Application
 
-# Basic Registration & Login App (React + Express + MongoDB)
+A modern, responsive full-stack E-Commerce web application built with **React**, **Express**, **MongoDB**, and **Cloudinary**, featuring complete **user** and **admin** panels.
 
-This is a basic full-stack registration and login app built with:
+## ✨ Features
 
-- **Frontend:** React (default `Vite + React` structure)
-- **Backend:** Express.js (`server.js`)
-- **Database:** MongoDB (using `MongoClient`)
-- **HTTP Client:** Axios
+### 👤 User Panel
+- 🔐 User Authentication (JWT + Bcrypt)
+- 🛒 Shopping Cart functionality
+- 🔎 Product Search
+- 🧰 Product Filtering (by category, etc.)
+- 🔃 Product Sorting (Price: Low to High / High to Low)
+- 📱 Fully Responsive UI
 
-> ⚠️ **Disclaimer:** This project is for learning/demo purposes only. It does **not** implement password hashing, authentication tokens, or secure session management.
+### 🛠️ Admin Panel
+- 👤 Admin Authentication
+- 📦 Upload new products (with images via Multer + Cloudinary)
+- ❌ Delete existing products
+- ❓ View user-submitted queries on a dedicated Query Page
 
 ---
 
+## 🗂️ Project Structure
 
+```
 
+e-commerce-app/
+│
+├── frontend/         # React-based frontend
+│   └── ...           # All client-side code
+│
+├── backend/          # Express-based backend
+│   ├── models/       # Mongoose models
+│   ├── routes/       # API routes
+│   ├── controllers/  # Route handlers
+│   └── ...           # Middleware, config, etc.
 
-
-## 🚀 Features
-
-- Basic registration form (username, email, password)
-- Basic login form (email, password)
-- Axios handles communication between frontend and backend
-- MongoDB stores user data (no hashing or encryption)
+````
 
 ---
 
 ## 🧰 Tech Stack
 
-- React
-- Express.js
-- MongoDB (via `mongodb` package, using `MongoClient`)
-- Axios
-- Nodemon / Concurrently for development (`npm run dev`)
+### Frontend
+- **React**
+- **React Router**
+- **Axios**
+- **Context API**
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB + Mongoose**
+- **JWT** for secure authentication
+- **Bcrypt** for password hashing
+- **Multer** for file uploads
+- **Cloudinary** for image storage
 
 ---
 
+## 🚀 Getting Started
 
-## 🏃 Running the App
+### Prerequisites
 
-Start backend using:
+- Node.js and npm installed
+- MongoDB instance (local or MongoDB Atlas)
+
+### Clone the Repo
+
 ```bash
-npm i
+git clone https://github.com/your-username/e-commerce-app.git
+cd e-commerce-app
+````
+
+### Install Dependencies
+
+#### Backend
+
+```bash
+cd backend
+npm install
+```
+
+#### Frontend
+
+```bash
+cd ../frontend
+npm install
+```
+
+### Setup Environment Variables
+
+Create a `.env` file in the `/backend` folder:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### Run the App
+
+#### Start Backend
+
+```bash
+cd backend
 npm run dev
 ```
-Start the frontend using:
+
+#### Start Frontend
 
 ```bash
-cd registrationLogin
-npm i
-npm run dev
+cd frontend
+npm start
 ```
-This will:
-
-* Start the **Express backend** (typically on port `3000`)
-* Start the **React frontend** (on port `5173`)
 
 ---
 
-## 📌 Notes
+## 📷 Image Handling
 
-* No password hashing — passwords are stored as plain text (not safe for real use).
-* No authentication (JWT, cookies, etc.).
-* No form validation.
-* Intended only as a learning or demo scaffold.
+* File uploads are handled using **Multer**
+* Uploaded images are stored in **Cloudinary**
 
 ---
 
-## 🙋 Contributions Welcome!
+## 🛡️ Authentication
 
-Feel free to fork and extend this project — add hashing, JWT, form validation, UI enhancements, etc.
+* **JWT tokens** are used for session management.
+* **Bcrypt** is used for secure password storage and comparison.
 
+---
+
+## 📩 Query Page
+
+* Users can submit queries via the UI.
+* Admin can view these on a dedicated dashboard page.
+
+---
+
+## 📌 To Do / Future Improvements
+
+* ✅ Pagination
+* ✅ Product Reviews & Ratings
+* ⏳ Payment Gateway Integration (e.g., Stripe, Razorpay)
+* ⏳ Email Notifications
+
+---
+
+## 🤝 Contributions
+
+Feel free to fork this repo and submit pull requests! Feedback and improvements are always welcome.
+
+---
+
+
+## 👨‍💻 Author
+
+**Umesh Tummepalli**
+[LinkedIn](https://www.linkedin.com/in/umesh-tummepalli-924362333)
