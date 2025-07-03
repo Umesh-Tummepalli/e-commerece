@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import connectCloudinary from "./config/cloudinary.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
-
+import cartRoutes from './routes/cartRoutes.js'
 // qapp configurations
 dotenv.config();  // loading env variables from .env file
 connectDB(); // connecting to mongodb
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 
 app.use('/user',userRoutes);
 app.use('/product',productRoutes);
-
+app.use('/cart',cartRoutes);
 // Handle non-existent routes (404)
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });

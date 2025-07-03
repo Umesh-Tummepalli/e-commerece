@@ -70,6 +70,7 @@ export async function registerUser(req, res) {
       name,
       email,
       password: passHash,
+      cartData:{}
     });
     const createdUser = await newUser.save();
 

@@ -9,11 +9,27 @@ import axios from "axios";
 
 const Product = () => {
   const { prodId } = useParams();
-  const { products, addToCart } = useContext(shopContext);
+  const { products } = useContext(shopContext);
   const [prodInfo, setProdInfo] = useState(null);
   const [size, setSize] = useState("S");
   const navigate = useNavigate();
-
+  async function addToCart(itemId, size) {
+    try{
+      console.log('api call done')
+      const res=await axios.post(`http://localhost:4000/cart/${itemId}?size=${size}&type=add`,{},{
+        headers:{
+          token:localStorage.getItem('token')
+        }
+      })
+      if(res.data.success){
+        toast.success(res.data.message);
+        console.log(res.data)
+      }
+    }
+    catch(err){
+      toast.error(err.response.data.message);
+    }
+  }
   useEffect(() => {
     const info = products.find((item) => item._id === prodId);
     if (info) {
@@ -89,8 +105,7 @@ const Product = () => {
               </p>
             ))}
             <p>
-              Selected Size -{" "}
-              <span className="font-bold text-xl">{size}</span>
+              Selected Size - <span className="font-bold text-xl">{size}</span>
             </p>
           </div>
 

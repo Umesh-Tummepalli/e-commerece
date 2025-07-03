@@ -11,7 +11,7 @@ export default async function userAuth(req, res, next) {
         process.env.JWT_SECRET
       );
       const { id } = isValidtoken;
-      const userDets =await userModel.findById(id);
+      const userDets =await userModel.findById(id,{cartData:0,password:0});
       if (!userDets) {
         return res
           .status(401)

@@ -24,6 +24,7 @@ const Profile = () => {
           }
         })
         if (res.data.success) {
+          console.log(res.data)
           setUserData({
             name: res.data.user.name || 'User',
             email: res.data.user.email,
