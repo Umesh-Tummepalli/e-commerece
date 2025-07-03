@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, User, LoaderCircle } from "lucide-react";
-
+import { toast } from "react-toastify";
+import axios from 'axios'
+import {useNavigate} from "react-router-dom"
 // --- Custom Hook for Form Management ---
 // This hook encapsulates form state, validation, and submission logic.
 const useForm = (initialState, validate) => {
@@ -17,18 +19,10 @@ const useForm = (initialState, validate) => {
     }
   }, [errors]);
 
-  const handleSubmit = useCallback(async (e, callback) => {
+  function handleSubmit(e,callback) {
     e.preventDefault();
-    const validationErrors = validate(formData);
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      setIsSubmitting(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      callback(formData);
-      setIsSubmitting(false);
-    }
-  }, [formData, validate]);
+    callback(formData);
+  }
 
   return { formData, errors, isSubmitting, handleChange, handleSubmit };
 };
@@ -199,11 +193,25 @@ const AuthForms = () => {
 
 
 // --- Login Form Logic ---
+  const navigate=useNavigate();
 
-
-  const handleLoginSubmitCallback = (data) => {
+  const handleLoginSubmitCallback = async (data) => {
     console.log("Login data:", data);
-    
+    try{
+      const res= await axios.post("http://localhost:4000/user/login",data);
+      if(res.data.success){
+        toast.success(res.data.message || "Login Successful");
+        localStorage.setItem("token",res.data.token);
+        return navigate("/");
+      }
+      else{
+        toast.error(res.data.message);
+      }
+    }
+    catch(Err){
+      console.log(Err);
+      toast.error(Err.response.data.message);
+    }
   };
 
   const loginForm = useForm({ email: "", password: "" }, validateLogin);
@@ -220,13 +228,25 @@ const AuthForms = () => {
     if (data.password !== data.confirmPassword) errors.confirmPassword = "Passwords do not match";
     return errors;
   };
-  const handleRegisterSubmitCallback = (data) => {
+  const handleRegisterSubmitCallback =async (data) => {
     console.log("Register data:", data);
-    // After successful registration, switch to the login view
+    try{
+      const res= await axios.post("http://localhost:4000/user/register",data);
+      if(res.data.success){
+        toast.success(res.data.message || "Registration Successful");
+        setIsLoginView(true);
+      }
+      else{
+        toast.error(res.data.message);
+      }
+    }
+     catch(err){
+      console.log(err);
+      toast.error(err.response.data.message);
+     }
     setIsLoginView(true);
   };
   
-
   const registerForm = useForm({ name: "", email: "", password: "", confirmPassword: "" }, validateRegister);
 
   const TABS = [{ id: "login", label: "Sign In" }, { id: "register", label: "Register" }];

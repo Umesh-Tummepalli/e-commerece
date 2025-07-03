@@ -1,11 +1,33 @@
 import React, { useState, useContext, useEffect } from "react";
 import { shopContext } from "../context/ShopContext";
 import Title from "../components/Title";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Cart = () => {
   const { cartItems, products } = useContext(shopContext);
   const [cartProducts, setCartProducts] = useState([]);
-
+  const navigate = useNavigate();
+async function checkAuth() {
+    try {
+      const res = await axios.get("http://localhost:4000/user/profile", {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+      if (!res.data.success) {
+        toast.error(res.data.message);
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Please Login to Continue");
+      navigate("/login");
+    }
+  }
   useEffect(() => {
+    checkAuth();
     const currObj = [];
     for (const items in cartItems) {
       for (const item in cartItems[items]) {

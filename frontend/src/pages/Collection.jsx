@@ -171,19 +171,20 @@ const Collection = () => {
 
           <motion.div layout className="flex flex-wrap">
             {filteredProds.map((item) => {
-              return(
-              <motion.div
-                className="div inline"
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 50 }}
-                key={item._id}
-                layoutId={item._id}
-              >
-                <Card item={item} />
-              </motion.div>
-            )})}
+              return (
+                <motion.div
+                  className="div inline"
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 50 }}
+                  key={item._id}
+                  layoutId={item._id}
+                >
+                  <Card item={item} />
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
