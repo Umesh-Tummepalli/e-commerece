@@ -16,12 +16,10 @@ export async function userLogin(req, res) {
     }
     const user = await userModel.findOne({ email: email });
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "User with this email does not exist",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "User with this email does not exist",
+      });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
@@ -48,12 +46,10 @@ export async function registerUser(req, res) {
     }
     const exist = await userModel.exists({ email: email });
     if (exist) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "User with this email already exists",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists",
+      });
     }
     if (!validator.isEmail(email)) {
       return res
@@ -61,12 +57,10 @@ export async function registerUser(req, res) {
         .json({ success: false, message: "Please enter a valid email" });
     }
     if (password.length < 8) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Password must be at least 8 characters long",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 8 characters long",
+      });
     }
     //salting and hashing the password
     const salt = await bcrypt.genSalt(10);
@@ -128,10 +122,21 @@ export async function userMessage(req, res) {
       message,
     });
     await newMessage.save();
-    res.status(200).json({ success: true, message: "Message sent successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Message sent successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: "something went wrong" });
     console.log("error in useMessage", err);
+  }
+}
+
+export async function sendmessages(req, res) {
+  try {
+    const messageData = await userMessageModel.find({});
+    return res.status(200).json({ success: true, messages: messageData });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "something went wrong" });
   }
 }
 export async function adminRegister() {}
