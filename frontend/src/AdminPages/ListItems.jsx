@@ -13,20 +13,12 @@ const ListItems = () => {
 
   async function fetchItems() {
     try {
-      const authCheck = await axios.get(
-        "http://localhost:4000/user/admin/checkAuth",
-        {
-          headers: {
-            token: localStorage.getItem("adminToken"),
-          },
-        }
-      );
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/product/list", {
+      const res = await axios.get("http://localhost:4000/product/admin/list", {
         headers: {
           token: localStorage.getItem("adminToken"),
         },
-      });
+      }); 
       if (res.data.success) {
         setItems(res.data.products);
       } else {

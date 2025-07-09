@@ -4,16 +4,15 @@ import Title from "./Title"
 import Card from './Card'
 const RelatedProducts = (props) => {
     const {products}=useContext(shopContext);
-    const {category}=props;
+    const {category,id}=props;
     const [relatedProds,setrelatedProds]=useState([]);
     useEffect(()=>{
-      const relprods=products.filter(item=>item.category===category).slice(0,5);
+      const relprods=products.filter(item=>item.category===category && item._id!==id).slice(0,5);
       setrelatedProds(relprods);
-    },[category,products])
+    },[category,products,id])
   return (
     <div className="p-3 mt-7">
       <div className="text-center">
-
         <Title text1="Related" text2="Products"/>
       </div>
         <div>
@@ -27,4 +26,4 @@ const RelatedProducts = (props) => {
   )
 }
 
-export default RelatedProducts
+export default RelatedProducts;

@@ -19,7 +19,7 @@ export default async function userAuth(req, res, next) {
       }
       req.user=userDets;
       next();
-  } catch (err) {
+  } catch (err) { 
     res.status(401).json({ success: false, message: "Unauthorized" });
   }
 }

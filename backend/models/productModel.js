@@ -35,6 +35,7 @@ const productSchema=new mongoose.Schema({
     admin:{
         type:mongoose.Schema.Types.ObjectId || null,
         default:null,
+        ref:'admins'
     },
     imagePublicIds:{
         type:[String],

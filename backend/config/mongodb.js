@@ -16,7 +16,7 @@ process.on('SIGINT',async()=>{
         process.exit(0);
     }
     catch(err){
-        console.log(err);
+        console.log("Error in closing mongodb connection",err);
         process.exit(1);
     }
 })

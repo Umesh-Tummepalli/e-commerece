@@ -79,7 +79,8 @@ export async function addProduct(req, res) {
       sizes: JSON.parse(sizes),
       bestSeller: bestSeller === "true",
       images: imageUrl,
-      imagePublicIds
+      imagePublicIds,
+      admin: req.admin._id,
     };
     try {
       const newProduct = new Product(prodData);
@@ -143,5 +144,17 @@ export async function productInfo(req, res) {
   catch(err){
     console.log('Error from productInfo',err);
     return res.status(500).json({success:false,message:'something went wrong'});
+  }
+}
+
+export async function listAdminProducts(req,res){
+  const id=req.admin._id;
+  try{  
+    const products=await Product.find({admin:id});
+    return res.status(200).json({success:true,products});
+  }
+  catch(err){
+    console.log('Error from listAdminProducts',err);
+    res.status(500).json({success:false,message:'something went wrong'});
   }
 }

@@ -18,6 +18,8 @@ import Queries from "../AdminPages/Queries";
 import AdminOrders from "../AdminPages/Orders";
 import InvalidRoute from "../components/InvalidRoute";
 import AdminLogin from "../AdminPages/AdminLogin";
+import Checkout from "../pages/checkout";
+import AdminRegistration from "../AdminPages/AdminRegistration";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -63,6 +65,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      {
+        path: "checkout",
+        element: <Checkout />,
+      }
     ],
   },
   {
@@ -92,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <AdminLogin />,
+      },
+      {
+        path: "registration",
+        element: <AdminRegistration />,
       }
     ],
   },

@@ -68,6 +68,7 @@ const Queries = () => {
       );
 
       if (res.data.success) {
+        toast.success("Query deleted successfully");
         setQueries(queries.filter((query) => query._id !== id));
       }
     } catch (err) {
@@ -332,7 +333,7 @@ const Queries = () => {
                             ) : (
                               <button
                                 onClick={() => setDeleteConfirmId(query._id)}
-                                className="text-red-600 hover:text-red-800 hidden"
+                                className="text-red-600 hover:text-red-800 "
                                 title="Delete"
                               >
                                 <Trash2 className="h-5 w-5" />

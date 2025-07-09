@@ -3,6 +3,8 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userMessageModel from "../models/userMessage.js";
+import mongoose from "mongoose"
+import adminModel from "../models/adminModel.js";
 function createToken(id) {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 }
@@ -90,21 +92,25 @@ export async function adminLogin(req, res) {
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });
     }
-    if (
-      process.env.ADMIN_EMAIL !== email ||
-      process.env.ADMIN_PASSWORD !== password
-    ) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials" });
+    const admin = await adminModel.findOne({ email: email });
+    if (!admin) {
+      return res.status(400).json({
+        success: false,
+        message: "Admin with this email does not exist",
+      });
     }
-    const token = createToken(
-      process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD
-    );
-    return res.status(200).json({ success: true, token });
-  } catch (Err) {
-    res.status(500).json({ success: false, message: "something went wrong" });
-    console.log("error in adminLogin", err);
+    const match =await  bcrypt.compare(password, admin.password);
+    if(match){
+     const token= createToken(admin._id);
+      return res.status(200).json({success:true,message:'Admin logged in successfully',token});
+    }
+    else{
+      return res.status(400).json({success:false,message:'Invalid credentials'});
+    }
+  }
+  catch(err){
+    console.log('error from adminLogin',err);
+    return res.status(500).json({success:false,message:'something went wrong try again'})
   }
 }
 
@@ -140,4 +146,37 @@ export async function sendmessages(req, res) {
     res.status(500).json({ success: false, message: "something went wrong" });
   }
 }
-export async function adminRegister() {}
+
+
+export async function deleteMessage(req,res){
+    const {id}=req.params;
+    const isValid = mongoose.Types.ObjectId.isValid(id);
+    if(!isValid) res.status(400).json({success:false,message:'Invalid Id'})  
+    try{
+        await userMessageModel.findByIdAndDelete(id);
+        res.status(200).json({success:true,message:'Message deleted successfully'})
+    }
+    catch(Err){
+        res.status(500).json({success:false,message:Err.message})
+    }
+}
+export async function adminRegister(req,res) {
+  const {name,password,email}=req.body;
+  if(!name || !password || !email){
+    return res.status(400).json({success:false,message:'Please fill all the fields'});
+  }
+  const exist=await adminModel.exists({email:email});
+  if(exist){
+    return res.status(400).json({success:false,message:'Admin with this email already exists'});
+  }
+  const salt = await bcrypt.genSalt(10);
+  const passHash = await bcrypt.hash(password, salt);
+  try{
+    await new adminModel({name,email,password:passHash}).save();
+    res.status(200).json({success:true,message:'Admin registered successfully'});
+  }
+  catch(err){
+    console.log('error in saving admin in db');
+    return res.status(500).json({success:false,message:'something went wrong'});
+  }
+}

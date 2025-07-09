@@ -217,6 +217,12 @@ const AdminLogin = () => {
               </button>
             </div>
           </form>
+          <p
+          className="mt-10 text-center text-sm text-gray-500 cursor-pointer"
+          onClick={() => navigate('/admin/registration')}
+          >
+              Not having admin account? register here
+          </p>
         </div>
       </motion.div>
     </div>

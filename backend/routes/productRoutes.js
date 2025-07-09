@@ -3,6 +3,7 @@ import {
   listProducts,
   removeProduct,
   productInfo,
+  listAdminProducts
 } from "../controllers/productController.js";
 import express from "express";
 import upload from "../middleware/multer.js";
@@ -22,6 +23,7 @@ router.post(
 );
 router.get("/list", listProducts);
 router.delete("/remove",adminAuth, removeProduct);
+router.get("/admin/list",adminAuth,listAdminProducts);
 router.get("/info", productInfo);
 
 export default router;

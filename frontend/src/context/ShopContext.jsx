@@ -13,7 +13,6 @@ const ShopProvider=({children})=>{
             try{
                 const res= await axios.get("http://localhost:4000/product/list");
                 if(res.data.success){
-                    console.log(res.data.products)
                     setProducts(res.data.products);
                 }
                 else{

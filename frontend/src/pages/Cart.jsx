@@ -116,7 +116,6 @@ const Cart = () => {
     const currObj = [];
     for (const items in cartItems) {
       for (const item in cartItems[items]) {
-        console.log(item, cartItems[items][item]);
         currObj.push({
           _id: items,
           size: item,
@@ -215,7 +214,7 @@ const Cart = () => {
               }, 0)}
             </p>
           </div>
-          <div className="flex justify-between">
+            <div className="flex justify-between">
             <p className="font-medium">Shipping Fee</p>
             <p className="font-bold">$10</p>
           </div>
@@ -229,6 +228,14 @@ const Cart = () => {
             }, 0) + 10}
           </p>
         </div>
+        {
+          cartProducts.length>0 &&
+          <button className="rounded-md bg-black w-full text-white p-2 my-2 hover:opacity-80"
+          onClick={() => navigate('/checkout')}
+          >
+            Order
+        </button>
+        }
       </div>
     </div>
   );

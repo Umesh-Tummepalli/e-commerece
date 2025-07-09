@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 import { 
   LayoutDashboard, 
   PackagePlus, 
@@ -72,7 +72,11 @@ const AdminPanel = () => {
             className={`w-64 bg-gray-100 border-r border-gray-200 flex-shrink-0 h-full fixed md:relative z-40`}
           >
             <div className="p-4 h-full flex flex-col">
-              <h1 className="text-2xl font-bold mb-8 px-2">Admin Panel</h1>
+              <h1 className="text-2xl font-bold mb-8 px-2">
+                <Link to="/">
+                <img src="/public/logo.svg" alt="" className="mb-4"/>
+                </Link>
+                Admin Panel</h1>
               <nav className="flex-1">
                 <ul className="space-y-2">
                   {navLinks.map((link) => (

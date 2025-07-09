@@ -10,12 +10,9 @@ router.get("/", async (req, res) => {
   try {
     const { user } = req;
     const userCart = await userModel.findById(user._id, { cartData: 1 });
-    console.log(user._id);
     const { cartData } = userCart;
-    console.log(cartData, userCart);
     if (cartData) {
-      console.log(cartData);
-      res.status(200).json({
+      res.status(200).json({  
         success: true,
         cartData,
         message: "cart data fetched successfully",

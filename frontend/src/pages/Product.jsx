@@ -118,7 +118,7 @@ const Product = () => {
         </div>
       </div>
 
-      <RelatedProducts category={prodInfo?.category} />
+      <RelatedProducts category={prodInfo?.category} id={prodInfo?._id} />
     </>
   );
 };

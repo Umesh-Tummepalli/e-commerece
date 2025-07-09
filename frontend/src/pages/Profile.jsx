@@ -1,71 +1,71 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { User, ShoppingBag, LogOut } from 'lucide-react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { User, ShoppingBag, LogOut } from "lucide-react";
 
 const Profile = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    uid: ''
-  })
-  const [loading, setLoading] = useState(false)
+    name: "",
+    email: "",
+    uid: "",
+  });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        console.log('called api')
-        setLoading(true)
-        const res = await axios.get('http://localhost:4000/user/profile', {
+        console.log("called api");
+        setLoading(true);
+        const res = await axios.get("http://localhost:4000/user/profile", {
           headers: {
-            token: localStorage.getItem('token')
-          }
-        })
+            token: localStorage.getItem("token"),
+          },
+        });
         if (res.data.success) {
-          console.log(res.data)
+          console.log(res.data);
           setUserData({
-            name: res.data.user.name || 'User',
+            name: res.data.user.name || "User",
             email: res.data.user.email,
-            uid: res.data.user._id
-          })
+            uid: res.data.user._id,
+          });
         }
       } catch (err) {
-        console.error('Error fetching profile:', err)
+        console.error("Error fetching profile:", err);
         if (err.response?.status === 401) {
-          navigate('/login')
+          navigate("/login");
         }
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-    fetchProfile()
-  }, [])
+    fetchProfile();
+  }, []);
 
   const handleLogout = () => {
     // Add your logout functionality here
-    console.log('Logout clicked')
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
+    console.log("Logout clicked");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         >
           <User className="h-12 w-12 text-gray-400" />
         </motion.div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center p-4">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -74,14 +74,11 @@ const Profile = () => {
         <div className="p-8 md:p-10">
           {/* Profile Header */}
           <div className="flex flex-col items-center mb-10">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="relative mb-6"
-            >
+            <motion.div whileHover={{ scale: 1.05 }} className="relative mb-6">
               <div className="h-32 w-32 rounded-full bg-blue-100 flex items-center justify-center">
                 <User className="h-16 w-16 text-blue-600" />
               </div>
-              <motion.div 
+              <motion.div
                 className="absolute -bottom-2 -right-2 bg-blue-600 text-white rounded-full p-2 shadow-lg"
                 whileHover={{ rotate: 15 }}
               >
@@ -89,7 +86,7 @@ const Profile = () => {
               </motion.div>
             </motion.div>
 
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold text-gray-800 mb-1"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -97,7 +94,7 @@ const Profile = () => {
             >
               {userData.name}
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-lg text-gray-600 mb-2"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -105,7 +102,7 @@ const Profile = () => {
             >
               {userData.email}
             </motion.p>
-            <motion.p 
+            <motion.p
               className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -120,7 +117,7 @@ const Profile = () => {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => navigate('/orders')}
+              onClick={() => navigate("/orders")}
               className="bg-blue-600 hover:bg-blue-700 text-white py-5 px-6 rounded-xl flex items-center justify-center space-x-3 transition-colors shadow-md"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -145,7 +142,7 @@ const Profile = () => {
           </div>
 
           {/* Stats or Additional Info (optional) */}
-          <motion.div 
+          <motion.div
             className="mt-10 pt-6 border-t border-gray-200"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -166,7 +163,7 @@ const Profile = () => {
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
